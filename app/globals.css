@@ -613,4 +613,13 @@ button, input { font: inherit; }
   .sc-progress .big {
     font-size: 22px;
   }
+.brand-wordmark {
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.tagline {
+  font-size: 12px;
+  letter-spacing: 2px;
+  opacity: 0.7;
 }
