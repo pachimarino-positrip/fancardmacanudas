@@ -116,10 +116,6 @@ function LoginContent() {
 
   return (
     <main className="app-shell">
-      <header className="site-header">
-        <div className="brand-wordmark">Macanudas</div>
-        <div className="tagline">Fan Card Access</div>
-      </header>
 
       <div className="stripe" />
 
