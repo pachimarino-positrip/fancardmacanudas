@@ -1,12 +1,14 @@
 'use client';
 
-import { FormEvent, useEffect, useMemo, useState } from 'react';
+export const dynamic = 'force-dynamic';
+
+import { FormEvent, Suspense, useEffect, useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 
 type Mode = 'signin' | 'signup';
 
-export default function LoginPage() {
+function LoginContent() {
   const supabase = useMemo(() => createClient(), []);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -156,9 +158,7 @@ export default function LoginPage() {
             <label>Email</label>
             <input
               type="email"
-              placeholder={
-                isAdminFlow ? 'info@macanudasempanadas.com' : 'you@email.com'
-              }
+              placeholder={isAdminFlow ? 'info@macanudasempanadas.com' : 'you@email.com'}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -183,8 +183,8 @@ export default function LoginPage() {
                 ? 'Creating account...'
                 : 'Signing in...'
               : mode === 'signup' && !isAdminFlow
-              ? 'Create account'
-              : 'Sign in'}
+                ? 'Create account'
+                : 'Sign in'}
           </button>
         </form>
       </section>
@@ -226,9 +226,15 @@ export default function LoginPage() {
         </>
       )}
 
-      <div className="footer-note">
-        Macanudas Empanadas · Loyalty Program
-      </div>
+      <div className="footer-note">Macanudas Empanadas · Loyalty Program</div>
     </main>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginContent />
+    </Suspense>
   );
 }
